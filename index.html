@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Harun Tabakovic — CS Graduate · ML & AI Enthusiast</title>
+  <meta name="description" content="Harun Tabakovic — Computer Science graduate and aspiring Machine Learning engineer. Turning data into decisions, one model at a time." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg-primary: #0f0f0f;
+      --bg-secondary: #1a1a1a;
+      --bg-card: #1e1e1e;
+      --blue: #3b82f6;
+      --blue-glow: rgba(59, 130, 246, 0.15);
+      --blue-border: rgba(59, 130, 246, 0.25);
+      --white: #ffffff;
+      --gray-100: #f3f4f6;
+      --gray-300: #d1d5db;
+      --gray-400: #9ca3af;
+      --gray-500: #6b7280;
+      --gray-700: #374151;
+      --gray-800: #1f2937;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg-primary);
+      color: var(--gray-300);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3, h4 {
+      font-family: 'Space Grotesk', sans-serif;
+      color: var(--white);
+    }
+
+    a { text-decoration: none; color: inherit; }
+
+    /* Fade animations */
+    .fade-section {
+      opacity: 0;
+      transform: translateY(32px);
+      transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1), transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .fade-section.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Nav */
+    .portfolio-nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      padding: 16px 0;
+      background: rgba(15, 15, 15, 0.8);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+    }
+    .nav-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .nav-logo {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: 20px;
+      color: var(--white);
+      letter-spacing: -0.5px;
+    }
+    .nav-logo span { color: var(--blue); }
+    .nav-links { display: flex; gap: 32px; list-style: none; }
+    .nav-links a {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--gray-400);
+      transition: color 0.2s;
+      letter-spacing: 0.01em;
+    }
+    .nav-links a:hover { color: var(--white); }
+
+    /* Section wrapper */
+    .section-wrap { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+
+    /* Hero */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-bg-grid {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(59,130,246,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(59,130,246,0.03) 1px, transparent 1px);
+      background-size: 60px 60px;
+      mask-image: radial-gradient(ellipse 70% 60% at 50% 40%, black 20%, transparent 70%);
+      -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 40%, black 20%, transparent 70%);
+    }
+    .hero-glow {
+      position: absolute;
+      top: -200px;
+      right: -200px;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(59,130,246,0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-content { position: relative; z-index: 1; }
+    .hero-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--blue);
+      background: var(--blue-glow);
+      border: 1px solid var(--blue-border);
+      padding: 6px 16px;
+      border-radius: 100px;
+      margin-bottom: 28px;
+      letter-spacing: 0.02em;
+    }
+    .hero-label-dot {
+      width: 6px;
+      height: 6px;
+      background: var(--blue);
+      border-radius: 50%;
+      animation: pulse-dot 2s ease-in-out infinite;
+    }
+    @keyframes pulse-dot { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+    .hero h1 {
+      font-size: clamp(40px, 7vw, 72px);
+      font-weight: 700;
+      line-height: 1.05;
+      letter-spacing: -2px;
+      margin-bottom: 8px;
+    }
+    .hero-title-accent {
+      background: linear-gradient(135deg, var(--blue) 0%, #60a5fa 50%, #93c5fd 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero-subtitle {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(16px, 2.5vw, 20px);
+      color: var(--gray-400);
+      font-weight: 400;
+      margin-bottom: 12px;
+      letter-spacing: -0.3px;
+    }
+    .hero-tagline {
+      font-size: clamp(15px, 2vw, 17px);
+      color: var(--gray-500);
+      font-style: italic;
+      margin-bottom: 40px;
+      font-weight: 300;
+    }
+    .hero-buttons { display: flex; gap: 16px; flex-wrap: wrap; }
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 28px;
+      background: var(--blue);
+      color: var(--white);
+      border: none;
+      border-radius: 10px;
+      font-family: 'Inter', sans-serif;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.25s;
+      letter-spacing: -0.01em;
+    }
+    .btn-primary:hover {
+      background: #2563eb;
+      transform: translateY(-1px);
+      box-shadow: 0 8px 30px rgba(59,130,246,0.3);
+    }
+    .btn-outline {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 28px;
+      background: transparent;
+      color: var(--gray-300);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 10px;
+      font-family: 'Inter', sans-serif;
+      font-size: 15px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.25s;
+      letter-spacing: -0.01em;
+    }
+    .btn-outline:hover {
+      border-color: var(--blue-border);
+      color: var(--white);
+      background: rgba(59,130,246,0.05);
+    }
+
+    /* Section headings */
+    .section-heading { margin-bottom: 48px; }
+    .section-heading h2 {
+      font-size: clamp(28px, 4vw, 36px);
+      font-weight: 700;
+      letter-spacing: -1px;
+      margin-bottom: 12px;
+    }
+    .section-heading p { font-size: 16px; color: var(--gray-500); max-width: 500px; }
+    .heading-line { width: 40px; height: 3px; background: var(--blue); border-radius: 2px; margin-bottom: 16px; }
+
+    /* About */
+    .about-section { padding: 120px 0; }
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: start; }
+    .about-text p { font-size: 16px; line-height: 1.8; color: var(--gray-300); margin-bottom: 20px; }
+    .about-details { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+    .about-detail-item {
+      background: var(--bg-secondary);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 12px;
+      padding: 20px;
+    }
+    .about-detail-label {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--gray-500);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 6px;
+    }
+    .about-detail-value {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 15px;
+      color: var(--white);
+      font-weight: 500;
+    }
+
+    /* Skills */
+    .skills-section { padding: 120px 0; background: var(--bg-secondary); }
+    .skills-groups { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
+    .skill-group {
+      background: var(--bg-primary);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 16px;
+      padding: 32px;
+      transition: border-color 0.3s;
+    }
+    .skill-group:hover { border-color: var(--blue-border); }
+    .skill-group-icon {
+      width: 40px;
+      height: 40px;
+      background: var(--blue-glow);
+      border: 1px solid var(--blue-border);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+      font-size: 18px;
+    }
+    .skill-group h3 { font-size: 18px; font-weight: 600; margin-bottom: 16px; letter-spacing: -0.3px; }
+    .skill-badges { display: flex; flex-wrap: wrap; gap: 8px; }
+    .skill-badge {
+      font-size: 13px;
+      font-weight: 500;
+      padding: 6px 14px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 8px;
+      color: var(--gray-300);
+      transition: all 0.2s;
+    }
+    .skill-badge:hover { background: var(--blue-glow); border-color: var(--blue-border); color: var(--white); }
+
+    /* Projects */
+    .projects-section { padding: 120px 0; }
+    .projects-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
+    .project-card {
+      background: var(--bg-secondary);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 16px;
+      padding: 36px;
+      transition: all 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+    .project-card:hover { border-color: rgba(255,255,255,0.12); transform: translateY(-2px); }
+    .project-card-highlight {
+      border-color: var(--blue-border);
+      background: linear-gradient(135deg, var(--bg-secondary) 0%, rgba(59,130,246,0.04) 100%);
+    }
+    .project-card-highlight:hover { border-color: var(--blue); box-shadow: 0 8px 40px rgba(59,130,246,0.12); }
+    .project-card-highlight::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--blue), #60a5fa);
+    }
+    .project-badge {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding: 4px 12px;
+      border-radius: 6px;
+      margin-bottom: 16px;
+    }
+    .project-badge-wip { background: rgba(250,204,21,0.1); color: #facc15; border: 1px solid rgba(250,204,21,0.2); }
+    .project-badge-live { background: rgba(34,197,94,0.1); color: #22c55e; border: 1px solid rgba(34,197,94,0.2); }
+    .project-card h3 { font-size: 22px; font-weight: 600; margin-bottom: 12px; letter-spacing: -0.3px; }
+    .project-card p { font-size: 15px; line-height: 1.7; color: var(--gray-400); margin-bottom: 20px; }
+    .project-tech { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 24px; }
+    .project-tech span {
+      font-size: 12px;
+      font-weight: 500;
+      padding: 4px 10px;
+      background: rgba(255,255,255,0.04);
+      border-radius: 6px;
+      color: var(--gray-400);
+    }
+    .project-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--blue);
+      transition: gap 0.2s;
+    }
+    .project-link:hover { gap: 10px; }
+    .project-btn { background: none; border: none; font-family: inherit; cursor: pointer; padding: 0; }
+    .project-btn:hover { gap: 10px; }
+
+    /* Education */
+    .education-section { padding: 120px 0; background: var(--bg-secondary); }
+    .timeline { position: relative; max-width: 700px; }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 15px;
+      top: 8px;
+      bottom: 8px;
+      width: 2px;
+      background: linear-gradient(180deg, var(--blue), rgba(59,130,246,0.1));
+    }
+    .timeline-item { position: relative; padding-left: 52px; padding-bottom: 48px; }
+    .timeline-item:last-child { padding-bottom: 0; }
+    .timeline-dot {
+      position: absolute;
+      left: 8px;
+      top: 6px;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      border: 3px solid var(--blue);
+      background: var(--bg-secondary);
+    }
+    .timeline-dot-active { background: var(--blue); box-shadow: 0 0 16px rgba(59,130,246,0.4); }
+    .timeline-date { font-size: 13px; font-weight: 600; color: var(--blue); margin-bottom: 6px; letter-spacing: 0.02em; }
+    .timeline-title { font-size: 20px; font-weight: 600; margin-bottom: 4px; letter-spacing: -0.3px; }
+    .timeline-school { font-size: 15px; color: var(--gray-400); margin-bottom: 4px; }
+    .timeline-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      font-weight: 500;
+      padding: 4px 12px;
+      border-radius: 6px;
+      margin-top: 8px;
+    }
+    .status-completed { background: rgba(34,197,94,0.1); color: #22c55e; border: 1px solid rgba(34,197,94,0.2); }
+    .status-upcoming { background: var(--blue-glow); color: var(--blue); border: 1px solid var(--blue-border); }
+
+    /* Contact */
+    .contact-section { padding: 120px 0; }
+    .contact-inner { text-align: center; max-width: 550px; margin: 0 auto; }
+    .contact-inner h2 { font-size: clamp(28px, 4vw, 36px); font-weight: 700; letter-spacing: -1px; margin-bottom: 16px; }
+    .contact-inner p { font-size: 16px; color: var(--gray-400); margin-bottom: 36px; line-height: 1.7; }
+    .contact-links { display: flex; justify-content: center; gap: 16px; }
+    .contact-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 28px;
+      background: var(--bg-secondary);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 12px;
+      color: var(--gray-300);
+      font-size: 15px;
+      font-weight: 500;
+      transition: all 0.25s;
+    }
+    .contact-link:hover { border-color: var(--blue-border); color: var(--white); background: rgba(59,130,246,0.05); transform: translateY(-1px); }
+    .contact-link svg { width: 20px; height: 20px; }
+
+    /* Chatbot */
+    .chatbot-section { padding: 120px 0 80px; background: var(--bg-secondary); }
+    .chatbot-window {
+      max-width: 600px;
+      margin: 0 auto;
+      background: var(--bg-primary);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+    }
+    .chatbot-header { padding: 20px 24px; border-bottom: 1px solid rgba(255,255,255,0.06); display: flex; align-items: center; gap: 12px; }
+    .chatbot-avatar {
+      width: 36px;
+      height: 36px;
+      background: linear-gradient(135deg, var(--blue), #60a5fa);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      color: white;
+      font-weight: 700;
+      font-family: 'Space Grotesk', sans-serif;
+    }
+    .chatbot-header-info h4 { font-size: 15px; font-weight: 600; letter-spacing: -0.2px; }
+    .chatbot-header-info p { font-size: 12px; color: var(--gray-500); }
+    .chatbot-online-dot { width: 8px; height: 8px; background: #22c55e; border-radius: 50%; margin-left: auto; animation: pulse-dot 2s ease-in-out infinite; }
+    .chatbot-messages { padding: 24px; min-height: 300px; display: flex; flex-direction: column; gap: 16px; }
+    .chat-msg { max-width: 80%; padding: 12px 16px; border-radius: 14px; font-size: 14px; line-height: 1.6; }
+    .chat-msg-bot { background: var(--bg-secondary); border: 1px solid rgba(255,255,255,0.06); color: var(--gray-300); align-self: flex-start; border-bottom-left-radius: 4px; }
+    .chat-msg-user { background: var(--blue); color: var(--white); align-self: flex-end; border-bottom-right-radius: 4px; }
+    .chat-typing {
+      display: flex;
+      gap: 4px;
+      align-items: center;
+      padding: 12px 16px;
+      background: var(--bg-secondary);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 14px;
+      border-bottom-left-radius: 4px;
+      align-self: flex-start;
+    }
+    .chat-typing-dot { width: 6px; height: 6px; background: var(--gray-500); border-radius: 50%; animation: typing 1.4s ease-in-out infinite; }
+    .chat-typing-dot:nth-child(2) { animation-delay: 0.2s; }
+    .chat-typing-dot:nth-child(3) { animation-delay: 0.4s; }
+    @keyframes typing { 0%, 60%, 100% { opacity: 0.3; transform: translateY(0); } 30% { opacity: 1; transform: translateY(-4px); } }
+    .chatbot-input { padding: 16px 24px; border-top: 1px solid rgba(255,255,255,0.06); display: flex; gap: 12px; align-items: center; }
+    .chatbot-input input {
+      flex: 1;
+      background: var(--bg-secondary);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 10px;
+      padding: 12px 16px;
+      color: var(--gray-300);
+      font-size: 14px;
+      font-family: 'Inter', sans-serif;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .chatbot-input input::placeholder { color: var(--gray-500); }
+    .chatbot-input input:focus { border-color: var(--blue-border); }
+    .chatbot-send {
+      width: 42px;
+      height: 42px;
+      background: var(--blue);
+      border: none;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: background 0.2s;
+      flex-shrink: 0;
+    }
+    .chatbot-send:hover { background: #2563eb; }
+    .chatbot-send svg { width: 18px; height: 18px; color: white; }
+    .chatbot-note { text-align: center; margin-top: 16px; font-size: 13px; color: var(--gray-500); }
+
+    /* Footer */
+    .portfolio-footer { padding: 32px 0; border-top: 1px solid rgba(255,255,255,0.04); text-align: center; }
+    .portfolio-footer p { font-size: 13px; color: var(--gray-500); }
+
+    /* Mobile */
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .about-grid { grid-template-columns: 1fr; gap: 40px; }
+      .about-details { grid-template-columns: 1fr 1fr; }
+      .skills-groups { grid-template-columns: 1fr; }
+      .projects-grid { grid-template-columns: 1fr; }
+      .hero-buttons { flex-direction: column; }
+      .btn-primary, .btn-outline { justify-content: center; }
+      .contact-links { flex-direction: column; align-items: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Nav -->
+  <nav class="portfolio-nav">
+    <div class="nav-inner">
+      <div class="nav-logo">H<span>.</span>T</div>
+      <ul class="nav-links">
+        <li><a href="#about">About</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#education">Education</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-bg-grid"></div>
+    <div class="hero-glow"></div>
+    <div class="section-wrap">
+      <div class="hero-content">
+        <div class="hero-label">
+          <span class="hero-label-dot"></span>
+          Open to opportunities
+        </div>
+        <h1>
+          Harun<br />
+          <span class="hero-title-accent">Tabakovic</span>
+        </h1>
+        <p class="hero-subtitle">CS Graduate · ML &amp; AI Enthusiast</p>
+        <p class="hero-tagline">"Turning data into decisions — one model at a time"</p>
+        <div class="hero-buttons">
+          <a href="#projects" class="btn-primary">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="7" height="7" x="3" y="3" rx="1"/><rect width="7" height="7" x="14" y="3" rx="1"/><rect width="7" height="7" x="14" y="14" rx="1"/><rect width="7" height="7" x="3" y="14" rx="1"/></svg>
+            View Projects
+          </a>
+          <a href="#chatbot" class="btn-outline">
+            Try AI Chatbot
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About -->
+  <section id="about" class="about-section">
+    <div class="section-wrap">
+      <div class="fade-section">
+        <div class="about-grid">
+          <div class="about-text">
+            <div class="section-heading">
+              <div class="heading-line"></div>
+              <h2>About Me</h2>
+            </div>
+            <p>
+              I'm a Computer Science graduate from Lyon, France, with roots in Bosnia &amp; Herzegovina. My focus is on machine learning and AI — I'm fascinated by how models can extract patterns from raw data and turn them into something actionable.
+            </p>
+            <p>
+              Right now I'm transitioning into my Master's in ML &amp; AI, building projects that go beyond coursework, and looking for opportunities where I can learn fast and contribute real code to real problems.
+            </p>
+          </div>
+          <div class="about-details">
+            <div class="about-detail-item">
+              <div class="about-detail-label">Location</div>
+              <div class="about-detail-value">Lyon, France</div>
+            </div>
+            <div class="about-detail-item">
+              <div class="about-detail-label">Origin</div>
+              <div class="about-detail-value">Bosnia &amp; Herzegovina</div>
+            </div>
+            <div class="about-detail-item">
+              <div class="about-detail-label">Languages</div>
+              <div class="about-detail-value">Bosnian, French, English</div>
+            </div>
+            <div class="about-detail-item">
+              <div class="about-detail-label">Focus</div>
+              <div class="about-detail-value">ML &amp; AI Engineering</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Skills -->
+  <section id="skills" class="skills-section">
+    <div class="section-wrap">
+      <div class="fade-section">
+        <div class="section-heading">
+          <div class="heading-line"></div>
+          <h2>Skills &amp; Tools</h2>
+          <p>Technologies I work with and am building expertise in.</p>
+        </div>
+        <div class="skills-groups">
+          <div class="skill-group">
+            <div class="skill-group-icon">&lt;/&gt;</div>
+            <h3>Languages</h3>
+            <div class="skill-badges">
+              <span class="skill-badge">Python</span>
+              <span class="skill-badge">Java</span>
+              <span class="skill-badge">C++</span>
+              <span class="skill-badge">SQL</span>
+            </div>
+          </div>
+          <div class="skill-group">
+            <div class="skill-group-icon">🧠</div>
+            <h3>AI / ML</h3>
+            <div class="skill-badges">
+              <span class="skill-badge">scikit-learn</span>
+              <span class="skill-badge">TensorFlow</span>
+              <span class="skill-badge">NLP</span>
+              <span class="skill-badge">Pandas</span>
+              <span class="skill-badge">NumPy</span>
+            </div>
+          </div>
+          <div class="skill-group">
+            <div class="skill-group-icon">⚙️</div>
+            <h3>Tools</h3>
+            <div class="skill-badges">
+              <span class="skill-badge">Git</span>
+              <span class="skill-badge">Linux</span>
+              <span class="skill-badge">VS Code</span>
+              <span class="skill-badge">Docker</span>
+              <span class="skill-badge">FastAPI</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Projects -->
+  <section id="projects" class="projects-section">
+    <div class="section-wrap">
+      <div class="fade-section">
+        <div class="section-heading">
+          <div class="heading-line"></div>
+          <h2>Projects</h2>
+          <p>What I've been building and working on.</p>
+        </div>
+        <div class="projects-grid">
+          <div class="project-card">
+            <span class="project-badge project-badge-wip">In Progress</span>
+            <h3>EasyHR — AI Recruitment Assistant</h3>
+            <p>An AI-powered platform designed to streamline the recruitment process. Built with Python, FastAPI, and large language models.</p>
+            <div class="project-tech"></div>
+            <span class="project-link" style="color: var(--gray-500); cursor: default;">Coming soon</span>
+          </div>
+          <div class="project-card project-card-highlight">
+            <span class="project-badge project-badge-live">Live Demo</span>
+            <h3>AI Assistent Chatbot</h3>
+            <p>An AI-powered assistant built with Python, FastAPI and Claude API — demonstrating real-world LLM integration and conversational AI design.</p>
+            <div class="project-tech">
+              <span>Python</span>
+              <span>FastAPI</span>
+              <span>Claude API</span>
+              <span>LLM</span>
+            </div>
+            <button onclick="scrollToChatbot()" class="project-link project-btn">Try it →</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Education -->
+  <section id="education" class="education-section">
+    <div class="section-wrap">
+      <div class="fade-section">
+        <div class="section-heading">
+          <div class="heading-line"></div>
+          <h2>Education</h2>
+          <p>My academic path in CS and AI.</p>
+        </div>
+        <div class="timeline">
+          <div class="timeline-item">
+            <div class="timeline-dot timeline-dot-active"></div>
+            <div class="timeline-date">2025 — Upcoming</div>
+            <h3 class="timeline-title">Master in Machine Learning &amp; AI</h3>
+            <p class="timeline-school">Université Lumière Lyon 2, Lyon, France</p>
+            <span class="timeline-status status-upcoming">
+              <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+              Next step
+            </span>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-date">2022 — 2025</div>
+            <h3 class="timeline-title">Bachelor in Computer Science</h3>
+            <p class="timeline-school">Université Lumière Lyon 2, Lyon, France</p>
+            <span class="timeline-status status-completed">
+              <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              Completed
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact" class="contact-section">
+    <div class="section-wrap">
+      <div class="fade-section">
+        <div class="contact-inner">
+          <div class="heading-line" style="margin: 0 auto 16px;"></div>
+          <h2>Let's Connect</h2>
+          <p>I'm always open to discussing ML projects, research opportunities, or potential collaborations. Feel free to reach out.</p>
+          <div class="contact-links">
+            <a href="https://linkedin.com/in/" target="_blank" rel="noopener noreferrer" class="contact-link">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M20.5 2h-17A1.5 1.5 0 002 3.5v17A1.5 1.5 0 003.5 22h17a1.5 1.5 0 001.5-1.5v-17A1.5 1.5 0 0020.5 2zM8 19H5v-9h3zM6.5 8.25A1.75 1.75 0 118.3 6.5a1.78 1.78 0 01-1.8 1.75zM19 19h-3v-4.74c0-1.42-.6-1.93-1.38-1.93A1.74 1.74 0 0013 14.19a.66.66 0 000 .14V19h-3v-9h2.9v1.3a3.11 3.11 0 012.7-1.4c1.55 0 3.36.86 3.36 3.66z"/></svg>
+              LinkedIn
+            </a>
+            <a href="https://github.com/" target="_blank" rel="noopener noreferrer" class="contact-link">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+              GitHub
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Chatbot -->
+  <section id="chatbot" class="chatbot-section">
+    <div class="section-wrap">
+      <div class="fade-section">
+        <div class="section-heading" style="text-align: center;">
+          <div class="heading-line" style="margin: 0 auto 16px;"></div>
+          <h2>AI Chatbot</h2>
+          <p style="margin: 0 auto;">Ask anything about Harun's skills, experience, and background.</p>
+        </div>
+        <div class="chatbot-window">
+          <div class="chatbot-header">
+            <div class="chatbot-avatar">H</div>
+            <div class="chatbot-header-info">
+              <h4>AI Assistant</h4>
+              <p>Powered by Claude API</p>
+            </div>
+            <div class="chatbot-online-dot"></div>
+          </div>
+          <div class="chatbot-messages">
+            <div class="chat-msg chat-msg-bot">
+              👋 Hi! I'm Harun's AI assistant. I can answer questions about his skills, projects, education, and experience. What would you like to know?
+            </div>
+            <div class="chat-msg chat-msg-user">
+              What programming languages does Harun know?
+            </div>
+            <div class="chat-msg chat-msg-bot">
+              Harun is proficient in <strong>Python</strong> (his primary language for ML/AI work), <strong>Java</strong>, <strong>C++</strong>, and <strong>SQL</strong>. He also works with frameworks like FastAPI, scikit-learn, and TensorFlow.
+            </div>
+            <div class="chat-typing">
+              <span class="chat-typing-dot"></span>
+              <span class="chat-typing-dot"></span>
+              <span class="chat-typing-dot"></span>
+            </div>
+          </div>
+          <div class="chatbot-input">
+            <input type="text" placeholder="Ask about Harun's experience..." disabled />
+            <button class="chatbot-send" disabled>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+            </button>
+          </div>
+        </div>
+        <p class="chatbot-note">Demo interface — full chatbot integration coming soon.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="portfolio-footer">
+    <div class="section-wrap">
+      <p>© 2025 Harun Tabakovic. Built with purpose.</p>
+    </div>
+  </footer>
+
+  <script>
+    function scrollToChatbot() {
+      const target = document.getElementById("chatbot");
+      if (target) {
+        target.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    }
+
+    // Fade-in on scroll
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+
+    document.querySelectorAll(".fade-section").forEach((s) => observer.observe(s));
+  </script>
+
+</body>
+</html>
